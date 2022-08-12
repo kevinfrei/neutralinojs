@@ -26,12 +26,11 @@ if(WIN32)
     "_HAS_STD_BYTE=0"
     "TRAY_WINAPI=1"
   )
+  # I don't know if this level of complexity is actually necessary
   add_library(winwebview SHARED IMPORTED)
   set_target_properties(winwebview PROPERTIES IMPORTED_LOCATION
     "lib/webview/windows/WebView2Loader.dll.lib")
-
-  # gdi32.lib version.lib Ole32.lib OleAut32.lib wbemuuid.lib ntdll.lib
-  set(OS_LIBS winwebview)
+  set(OS_LIBS winwebview gdi32.lib version.lib ole32.bli oleaut32.bli wbemuuid.lib ntdll.lib)
 elseif(APPLE)
   set(OS_SRC
     "lib/tinyprocess/process_unix.cpp"
