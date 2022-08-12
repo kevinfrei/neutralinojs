@@ -23,51 +23,6 @@ project(
   LANGUAGES CXX
 )
 
-if(WIN32)
-  set(OS_INCLUDE "lib/webview/windows")
-  set(OS_SRC
-    "lib/tinyprocess/process_win.cpp"
-    "lib/clip/clip_win.cpp"
-  )
-  set(OS_DEFINES
-    "_WEBSOCKET_CPP11_STL_"
-    "_HAS_STD_BYTE=0"
-    "TRAY_WINAPI=1"
-  )
-  # I don't know if this level of complexity is actually necessary
-  add_library(winwebview SHARED IMPORTED)
-  set_target_properties(winwebview PROPERTIES IMPORTED_LOCATION
-    "lib/webview/windows/WebView2Loader.dll.lib")
-  set(OS_LIBS winwebview gdi32.lib version.lib ole32.bli oleaut32.bli wbemuuid.lib ntdll.lib)
-elseif(APPLE)
-  set(OS_SRC
-    "lib/tinyprocess/process_unix.cpp"
-    "lib/clip/clip_osx.mm"
-  )
-  set(OS_DEFINES
-    "WEBVIEW_COCOA=1"
-    "TRAY_APPKIT=1"
-    "OBJC_OLD_DISPATCH_PROTOTYPES=1"
-  )
-  set(OS_LIBS
-    "-framework WebKit"
-    "-framework Cocoa"
-  )
-elseif(UNIX)
-  set(OS_SRC
-    "lib/tinyprocess/process_unix.cpp"
-    "lib/clip/clip_x11.cpp"
-  )
-  set(OS_DEFINES
-    "HAVE_XCB_XLIB_H"
-    "WEBVIEW_GTK=1"
-    "TRAY_APPINDICATOR=1"
-  )
-  # There's some stuff here: https://gist.github.com/fracek/3323924
-  # find_package(PkgConfig REQUIRED)
-  # pkg_check_modules(GTK REQUIRED gtk+-3.0)
-endif()
-
 # This isn't a great way to collect source files, but it's straight out of
 # the buildzri thing (who decides to make a new C++ build system in 2022?)
 # so let's just do it for now, I guess
@@ -95,8 +50,52 @@ set(SRC
   ${SRC_RECURSE}
 )
 
-# Anything referencing this project has to follow this statement:
-add_executable(neutralinojs ${SRC} ${OS_SRC})
+if(WIN32)
+  set(OS_INCLUDE "lib/webview/windows")
+  set(OS_SRC
+    "lib/tinyprocess/process_win.cpp"
+    "lib/clip/clip_win.cpp"
+  )
+  set(OS_DEFINES
+    "_WEBSOCKET_CPP11_STL_"
+    "_WEBSOCKETPP_CPP11_TYPE_TRAITS_"
+    "_HAS_STD_BYTE=0"
+    "TRAY_WINAPI=1"
+  )
+  # I don't know if this level of complexity is actually necessary
+  set(OS_LIBS "${CMAKE_CURRENT_LIST_DIR}\\lib\\webview\\windows\\WebView2Loader.dll.lib" gdi32 version ole32 oleaut32 wbemuuid ntdll)
+  add_executable(neutralinojs WIN32 ${SRC} ${OS_SRC})
+elseif(APPLE)
+  set(OS_SRC
+    "lib/tinyprocess/process_unix.cpp"
+    "lib/clip/clip_osx.mm"
+  )
+  set(OS_DEFINES
+    "WEBVIEW_COCOA=1"
+    "TRAY_APPKIT=1"
+    "OBJC_OLD_DISPATCH_PROTOTYPES=1"
+  )
+  set(OS_LIBS
+    "-framework WebKit"
+    "-framework Cocoa"
+  )
+  add_executable(neutralinojs MACOSX_BUNDLE ${SRC} ${OS_SRC})
+elseif(UNIX)
+  set(OS_SRC
+    "lib/tinyprocess/process_unix.cpp"
+    "lib/clip/clip_x11.cpp"
+  )
+  set(OS_DEFINES
+    "HAVE_XCB_XLIB_H"
+    "WEBVIEW_GTK=1"
+    "TRAY_APPINDICATOR=1"
+  )
+  # There's some stuff here: https://gist.github.com/fracek/3323924
+  # find_package(PkgConfig REQUIRED)
+  # pkg_check_modules(GTK REQUIRED gtk+-3.0)
+  add_executable(neutralinojs ${SRC} ${OS_SRC})
+endif()
+
 
 target_link_libraries(neutralinojs PRIVATE ${OS_LIBS})
 target_compile_definitions(
