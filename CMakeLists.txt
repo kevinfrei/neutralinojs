@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.23.0)
+cmake_minimum_required(VERSION 3.22.0)
 cmake_policy(SET CMP0074 NEW)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -91,9 +91,18 @@ elseif(UNIX)
     "TRAY_APPINDICATOR=1"
   )
   # There's some stuff here: https://gist.github.com/fracek/3323924
-  # find_package(PkgConfig REQUIRED)
-  # pkg_check_modules(GTK REQUIRED gtk+-3.0)
+  find_package(PkgConfig REQUIRED)
+  pkg_check_modules(GTK REQUIRED IMPORTED_TARGET gtk+-3.0)
+  pkg_check_modules(WEBKIT REQUIRED IMPORTED_TARGET webkit2gtk-4.0)
   add_executable(neutralinojs ${SRC} ${OS_SRC})
+  set(
+    OS_LIBS
+    PkgConfig::GTK
+    PkgConfig::WEBKIT
+    xcb
+    X11
+    Xrandr
+  )
 endif()
 
 
