@@ -12,6 +12,7 @@
 /bin/.tmp
 /bin/neutralino-*
 /bin/resources.neu
+/build
 /bin/resources/js/neutralino.*
 
 # Platform specific 

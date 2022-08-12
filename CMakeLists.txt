@@ -6,10 +6,18 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(NL_VERSION 4.7.0)
 
-# TODO: Make this figure things out automatically, eventually
-set(NL_COMMIT "DEADBEEF01")
+# Get the current git commit hash
+# This isn't perfect, but it's better than nothing and simple
+execute_process(
+  COMMAND
+  git log -1 --format=%h
+  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+  OUTPUT_VARIABLE NL_COMMIT
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+)
 
-project(neutralinojs
+project(
+  neutralinojs
   VERSION ${NL_VERSION}
   DESCRIPTION "NeutralinoJS"
   LANGUAGES CXX
@@ -55,16 +63,16 @@ elseif(UNIX)
     "WEBVIEW_GTK=1"
     "TRAY_APPINDICATOR=1"
   )
-
   # There's some stuff here: https://gist.github.com/fracek/3323924
   # find_package(PkgConfig REQUIRED)
   # pkg_check_modules(GTK REQUIRED gtk+-3.0)
 endif()
 
-# This isn't a great way to collect source files
-# But they awful build system someone who's never used a good build system designed
-# does this, so let's just do it for now...
-file(GLOB SRC_MOST
+# This isn't a great way to collect source files, but it's straight out of
+# the buildzri thing (who decides to make a new C++ build system in 2022?)
+# so let's just do it for now, I guess
+file(GLOB
+  SRC_MOST
   "*.cpp"
   "auth/*.cpp"
   "server/*.cpp"
@@ -76,7 +84,8 @@ set(SRC_SPECIFIC
   "lib/clip/clip.cpp"
   "lib/clip/image.cpp"
 )
-file(GLOB_RECURSE SRC_RECURSE
+file(GLOB_RECURSE
+  SRC_RECURSE
   "api/*.cpp"
   "lib/infoware/src/*.cpp"
 )
@@ -86,9 +95,12 @@ set(SRC
   ${SRC_RECURSE}
 )
 
+# Anything referencing this project has to follow this statement:
 add_executable(neutralinojs ${SRC} ${OS_SRC})
+
 target_link_libraries(neutralinojs PRIVATE ${OS_LIBS})
-target_compile_definitions(neutralinojs
+target_compile_definitions(
+  neutralinojs
   PRIVATE
   "NL_VERSION=\"${NL_VERSION}\""
   "NL_COMMIT=\"${NL_COMMIT}\""
@@ -98,7 +110,8 @@ target_compile_definitions(neutralinojs
   "INFOWARE_USE_X11"
   ${OS_DEFINES}
 )
-target_include_directories(neutralinojs
+target_include_directories(
+  neutralinojs
   PRIVATE
   "."
   "lib"
