@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(NL_VERSION 4.7.0)
+set(NEU_VERSION 4.9.0)
 
 # Get the current git commit hash
 # This isn't perfect, but it's better than nothing and simple
@@ -12,7 +12,7 @@ execute_process(
   COMMAND
   git log -1 --format=%h
   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
-  OUTPUT_VARIABLE NL_COMMIT
+  OUTPUT_VARIABLE NEU_COMMIT
   OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
@@ -109,8 +109,8 @@ target_link_libraries(neutralinojs PRIVATE ${OS_LIBS})
 target_compile_definitions(
   neutralinojs
   PRIVATE
-  "NL_VERSION=\"${NL_VERSION}\""
-  "NL_COMMIT=\"${NL_COMMIT}\""
+  "NEU_VERSION=\"${NEU_VERSION}\""
+  "NEU_COMMIT=\"${NEU_COMMIT}\""
   "ELELPP_NO_DEFAULT_LOG_FILE=1"
   "ASIO_STANDALONE"
   "INFOWARE_VERSION=\"0.6.0\""
