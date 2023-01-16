@@ -73,7 +73,6 @@ elseif(APPLE)
   set(OS_DEFINES
     "WEBVIEW_COCOA=1"
     "TRAY_APPKIT=1"
-    "OBJC_OLD_DISPATCH_PROTOTYPES=1"
   )
   set(OS_LIBS
     "-framework WebKit"
