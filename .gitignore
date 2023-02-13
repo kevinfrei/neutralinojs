@@ -18,3 +18,8 @@
 # Platform specific 
 Thumbs.db
 .DS_Store
+
+# Cmake build directories I like to use
+ninja
+ninja_rel
+build
