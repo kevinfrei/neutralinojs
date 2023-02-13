@@ -104,7 +104,6 @@ elseif(UNIX)
   )
 endif()
 
-
 target_link_libraries(neutralinojs PRIVATE ${OS_LIBS})
 target_compile_definitions(
   neutralinojs
@@ -126,3 +125,6 @@ target_include_directories(
   "lib/infoware/include"
   ${OS_INCLUDE}
 )
+add_custom_command(TARGET neutralinojs PRE_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_SOURCE_DIR}/bin/ $<TARGET_FILE_DIR:neutralinojs>)
