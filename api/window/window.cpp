@@ -585,6 +585,8 @@ bool snapshot(const string &filename) {
     return gdk_pixbuf_save(screenshot, filename.c_str(), "png", nullptr, nullptr);
 
     #elif defined(__APPLE__)
+    #if defined(MIGRATE_THIS_TO_SCREEN_CAPTURE_KIT)
+    // https://stackoverflow.com/questions/78847211/how-to-capture-screenshot-at-screen-resolution-with-screencapturekit
     CGRect frameRect = __getWindowRect();
     CGRect clientRect =
             ((CGRect (*)(id, SEL, CGRect))objc_msgSend)(windowHandle, "contentRectForFrameRect:"_sel, frameRect);
@@ -603,8 +605,9 @@ bool snapshot(const string &filename) {
     , true);
     
     return status;
-   
-
+    #else
+    return false;
+    #endif
     #elif defined(_WIN32)
     GdiplusStartupInput gdiplusStartupInput;
     ULONG_PTR gdiplusToken;

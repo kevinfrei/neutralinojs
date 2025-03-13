@@ -31,6 +31,7 @@ file(GLOB
   "*.cpp"
   "auth/*.cpp"
   "server/*.cpp"
+  "lib/efsw/src/efsw/*.cpp"
 )
 set(SRC_SPECIFIC
   "lib/tinyprocess/process.cpp"
@@ -52,27 +53,35 @@ set(SRC
 
 if(WIN32)
   set(OS_INCLUDE "lib/webview/windows")
-  set(OS_SRC
+  file(GLOB
+    OS_SRC
     "lib/tinyprocess/process_win.cpp"
     "lib/clip/clip_win.cpp"
+    "lib.efsw/src/efsw/platform/win/*.cpp"
   )
   set(OS_DEFINES
     "_WEBSOCKET_CPP11_STL_"
     "_WEBSOCKETPP_CPP11_TYPE_TRAITS_"
     "_HAS_STD_BYTE=0"
     "TRAY_WINAPI=1"
+    "UNICODE"
+    "_UNICODE"
   )
   # I don't know if this level of complexity is actually necessary
   set(OS_LIBS "${CMAKE_CURRENT_LIST_DIR}\\lib\\webview\\windows\\WebView2Loader.dll.lib" gdi32 version ole32 oleaut32 wbemuuid ntdll)
   add_executable(neutralinojs WIN32 ${SRC} ${OS_SRC})
 elseif(APPLE)
-  set(OS_SRC
+  file(GLOB 
+    OS_SRC
     "lib/tinyprocess/process_unix.cpp"
     "lib/clip/clip_osx.mm"
+    "lib/webview/macwindow.mm"
+    "lib/efsw/src/efsw/platform/posix/*.cpp"
   )
   set(OS_DEFINES
     "WEBVIEW_COCOA=1"
     "TRAY_APPKIT=1"
+    "MACOSX_DEPLOYMENT_TARGET=10.7"
   )
   set(OS_LIBS
     "-framework WebKit"
@@ -80,14 +89,17 @@ elseif(APPLE)
   )
   add_executable(neutralinojs MACOSX_BUNDLE ${SRC} ${OS_SRC})
 elseif(UNIX)
-  set(OS_SRC
+  file(GLOB
+    OS_SRC
     "lib/tinyprocess/process_unix.cpp"
     "lib/clip/clip_x11.cpp"
+    "lib/efsw/src/efsw/platform/posix/*.cpp"
   )
   set(OS_DEFINES
     "HAVE_XCB_XLIB_H"
     "WEBVIEW_GTK=1"
     "TRAY_APPINDICATOR=1"
+    "HAVE_PNG_H"
   )
   # There's some stuff here: https://gist.github.com/fracek/3323924
   find_package(PkgConfig REQUIRED)
@@ -114,6 +126,7 @@ target_compile_definitions(
   "ASIO_STANDALONE"
   "INFOWARE_VERSION=\"0.6.0\""
   "INFOWARE_USE_X11"
+  "CLIP_ENABLE_IMAGE"
   ${OS_DEFINES}
 )
 target_include_directories(
@@ -123,6 +136,8 @@ target_include_directories(
   "lib"
   "lib/asio/include"
   "lib/infoware/include"
+  "lib/efsw/include"
+  "lib/efsw/src"
   ${OS_INCLUDE}
 )
 add_custom_command(TARGET neutralinojs PRE_BUILD
