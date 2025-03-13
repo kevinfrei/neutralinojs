@@ -1,3 +1,27 @@
+# No More NIH for Neutralino!
+
+This is my fork of Neutralino, where I'm trying to eradicate the multiple wasted layers of NIH spread all over the place. I'd like to migrate a music player I built in Electron over to Neutralino, but I really hate the layers of BS that Neutralino has accrued.
+
+1. First item on the chopping block: buildzri. WTaF folks? Just use CMake. Your custom build system is garbage. How much do you hate yourself that you wrote a custom build system that just always recompiles everything, all the time? ZOMG, just use CMake. This is kinda done (I haven't tested it while I'm typing this doc, though).
+2. Next item that needs to go: Migrate to [Conan](https://conan.io) for dependencies. Wouldn't it be lovely if tracking dependencies was easy and maintained by someone else, instead of either forcing the code into the repo, or making people install stuff themselves? Yeah.
+    1. [websocketpp on conan](https://conan.io/center/recipes/websocketpp) C++ websocket client/server library: [zaphoyd/websocketpp](https://github.com/zaphoyd/websocketpp). 
+    2. [nlohmann_json on conan](https://conan.io/center/recipes/nlohmann_json) JSON parser library: [nlohmann/json](https://github.com/nlohmann/json).
+    3. MISSING: Cross-platform webview library: [webview/webview](https://github.com/webview/webview). 
+    4. MISSING: Cross-platform tray library: [zserge/tray](https://github.com/zserge/tray).
+    5. [portable-file-dialogs on conan](https://conan.io/center/recipes/portable-file-dialogs) Cross-platform GUI dialogs library: [samhocevar/portable-file-dialogs](https://github.com/samhocevar/portable-file-dialogs).
+    6. MISSING: Base64 encoder/decoder library: MIT from [tobiaslocker/base64](https://github.com/tobiaslocker/base64). Copyright (c) 2019 Tobias Locker.
+    7. [platform-folders on conan](https://conan.io/center/recipes/platformfolders): Cross-platform known platform directories API: [sago007/PlatformFolders](https://github.com/sago007/PlatformFolders).
+    8. [easyloggingpp on conan](https://conan.io/center/recipes/easyloggingpp): C++ logging library: [amrayn/easyloggingpp](https://github.com/amrayn/easyloggingpp).
+    9. MISSING: Cross-platform process library: MIT from [eidheim/tiny-process-library](https://gitlab.com/eidheim/tiny-process-library). Copyright (c) 2015-2020 Ole Christian Eidheim.
+    10. [boost on conan](https://conan.io/center/recipes/boost): Asio standalone C++ library: [chriskohlhoff/asio](https://github.com/chriskohlhoff/asio). **Just use Boost**
+    11. [dacap-clip](https://conan.io/center/recipes/dacap-clip): Cross-platform C++ clipboard library: [dacap/clip](https://github.com/dacap/clip).
+    12. MISSING: Cross-platform C++ system information library: [ThePhD/infoware](https://github.com/ThePhD/infoware).
+    13. [efsw on conan](https://conan.io/center/recipes/efsw): Cross-platform C++ filesystem watcher library: [SpartanJ/efsw](https://github.com/SpartanJ/efsw).
+
+3. Last item on the chopping block: that silly neu command line. Why does everyone build their own package manager? I don't know, but maybe I'll learn while I try to move that stuff to (probably) bun in an attempt to remove yet another tool that doesn't need to exist.
+
+Okay: On to your regularly scheduled README.md file...
+
 <div align="center">
   <picture>
     <source media="(prefers-color-scheme: light)" srcset="media/nllogo-light-theme.png" width="300"/>
