@@ -14,7 +14,7 @@
 #define FS_CONVWSTRN(S) helpers::normalizePath(helpers::wstr2str(S.wstring()))
 #endif
 
-#include "lib/json/json.hpp"
+#include <nlohmann/json.hpp>
 
 #include "settings.h"
 

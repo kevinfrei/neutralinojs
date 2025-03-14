@@ -7,7 +7,7 @@
 #include <map>
 #include <set>
 
-#include "lib/json/json.hpp"
+#include <nlohmann/json.hpp>
 #include "settings.h"
 #include "extensions_loader.h"
 #include "resources.h"
@@ -20,7 +20,7 @@
 #include "api/window/window.h"
 #include "api/computer/computer.h"
 
-#include "lib/platformfolders/platform_folders.h"
+#include <sago/platform_folders.h>
 
 using namespace std;
 using json = nlohmann::json;

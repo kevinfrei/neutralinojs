@@ -21,7 +21,7 @@
 #include <infoware/system.hpp>
 #include <infoware/cpu.hpp>
 #include "api/computer/computer.h"
-#include "lib/json/json.hpp"
+#include <nlohmann/json.hpp>
 
 using namespace std;
 using json = nlohmann::json;

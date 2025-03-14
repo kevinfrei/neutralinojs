@@ -10,7 +10,7 @@
 #include <windows.h>
 #endif
 
-#include "lib/json/json.hpp"
+#include <nlohmann/json.hpp>
 #include "settings.h"
 #include "helpers.h"
 #include "errors.h"

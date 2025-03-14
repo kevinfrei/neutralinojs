@@ -6,8 +6,8 @@
 #include <filesystem>
 #include <limits.h>
 
-#include "lib/easylogging/easylogging++.h"
-#include "lib/json/json.hpp"
+#include <easylogging++.h>
+#include <nlohmann/json.hpp>
 #include "helpers.h"
 #include "errors.h"
 #include "settings.h"

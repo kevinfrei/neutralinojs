@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "lib/json/json.hpp"
+#include <nlohmann/json.hpp>
 
 using namespace std;
 using json = nlohmann::json;

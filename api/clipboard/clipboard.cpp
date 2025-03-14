@@ -1,7 +1,7 @@
 #include <string>
 
-#include "lib/json/json.hpp"
-#include "lib/clip/clip.h"
+#include <nlohmann/json.hpp>
+#include <clip.h>
 #include "lib/base64/base64.hpp"
 #include "helpers.h"
 #include "errors.h"
@@ -13,6 +13,53 @@ using json = nlohmann::json;
 namespace clipboard {
 namespace controllers {
 
+clip::format get_html_format() {
+    #if defined(_WIN32)
+        return clip::register_format("HTML Format");
+    #elif defined(__linux__)
+        return clip::register_format("text/html");
+    #elif defined(__APPLE__)
+        return clip::register_format("public.html");
+    #endif
+}
+
+clip::format html_format() {
+    static clip::format f = get_html_format();
+    return f;
+}
+
+bool set_html(const std::string& value) {
+  clip::lock l;
+  if (l.locked()) {
+    l.clear();
+    return l.set_data(html_format(), value.c_str(), value.size());
+  }
+  else
+    return false;
+}
+
+bool get_html(std::string& value) {
+  clip::lock l;
+  if (!l.locked())
+    return false;
+
+  clip::format f = html_format();
+  if (!l.is_convertible(f))
+    return false;
+
+  size_t len = l.get_data_length(f);
+  if (len > 0) {
+    std::vector<char> buf(len);
+    l.get_data(f, &buf[0], len);
+    value = &buf[0];
+    return true;
+  }
+  else {
+    value.clear();
+    return true;
+  }
+}
+
 json getFormat(const json &input) {
     json output;
     string format = "unknown";
@@ -22,7 +69,7 @@ json getFormat(const json &input) {
     else if(clip::has(clip::image_format())) {
         format = "image";
     }
-    else if(clip::has(clip::html_format())) {
+    else if(clip::has(html_format())) {
         format = "html";
     }
     output["returnValue"] = format;
@@ -125,8 +172,8 @@ json writeText(const json &input) {
 json readHTML(const json &input) {
     json output;
     string clipHTML = "";
-    if(clip::has(clip::html_format())) {
-        clip::get_html(clipHTML);
+    if(clip::has(html_format())) {
+        get_html(clipHTML);
     }
     output["returnValue"] = clipHTML;
     output["success"] = true;
@@ -140,7 +187,7 @@ json writeHTML(const json &input) {
         return output;
     }
     string data = input["data"].get<string>();
-    clip::set_html(data);
+    set_html(data);
 
     output["success"] = true;
     return output;

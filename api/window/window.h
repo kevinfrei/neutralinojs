@@ -4,7 +4,7 @@
 #include <string>
 
 #include "errors.h"
-#include "lib/json/json.hpp"
+#include <nlohmann/json.hpp>
 
 #if defined(__linux__) || defined(__FreeBSD__)
 #include <gtk/gtk.h>

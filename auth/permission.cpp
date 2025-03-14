@@ -6,7 +6,7 @@
 #include <regex>
 #include <algorithm>
 
-#include "lib/json/json.hpp"
+#include <nlohmann/json.hpp>
 #include "settings.h"
 #include "helpers.h"
 

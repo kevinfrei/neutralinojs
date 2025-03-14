@@ -1,7 +1,7 @@
 #include <string>
 #include <filesystem>
 
-#include "lib/json/json.hpp"
+#include <nlohmann/json.hpp>
 #include "helpers.h"
 #include "errors.h"
 #include "server/router.h"

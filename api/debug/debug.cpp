@@ -1,8 +1,8 @@
 #include <iostream>
 #include <fstream>
 
-#include "lib/json/json.hpp"
-#include "lib/easylogging/easylogging++.h"
+#include <nlohmann/json.hpp>
+#include <easylogging++.h>
 #include "helpers.h"
 #include "errors.h"
 #include "api/debug/debug.h"

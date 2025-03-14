@@ -7,7 +7,7 @@
 #include <websocketpp/config/asio_no_tls.hpp>
 #include <websocketpp/server.hpp>
 
-#include "lib/json/json.hpp"
+#include <nlohmann/json.hpp>
 
 using namespace std;
 using json = nlohmann::json;

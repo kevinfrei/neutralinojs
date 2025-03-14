@@ -24,7 +24,7 @@
 #endif
 
 #include <efsw/efsw.hpp>
-#include "lib/json/json.hpp"
+#include <nlohmann/json.hpp>
 #include "lib/base64/base64.hpp"
 #include "settings.h"
 #include "helpers.h"

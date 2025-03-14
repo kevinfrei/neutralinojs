@@ -18,8 +18,8 @@
 
 #include "resources.h"
 #include "lib/tinyprocess/process.hpp"
-#include "lib/platformfolders/platform_folders.h"
-#include "lib/filedialogs/portable-file-dialogs.h"
+#include <sago/platform_folders.h>
+#include <portable-file-dialogs.h>
 
 #if defined(__linux__) || defined(__FreeBSD__) || defined(__APPLE__)
 #include <unistd.h>
@@ -36,7 +36,7 @@ extern char **environ;
 #pragma comment(lib, "Gdiplus.lib")
 #endif
 
-#include "lib/json/json.hpp"
+#include <nlohmann/json.hpp>
 #include "lib/tray/tray.h"
 #include "helpers.h"
 #include "errors.h"

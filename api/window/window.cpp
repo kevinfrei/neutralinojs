@@ -30,7 +30,7 @@
 #pragma comment(lib, "WebView2LoaderStatic.lib")
 #endif
 
-#include "lib/json/json.hpp"
+#include <nlohmann/json.hpp>
 #include "lib/webview/webview.h"
 #include "settings.h"
 #include "resources.h"

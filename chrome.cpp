@@ -2,8 +2,8 @@
 #include <vector>
 #include <regex>
 
-#include "lib/json/json.hpp"
-#include "lib/filedialogs/portable-file-dialogs.h"
+#include <nlohmann/json.hpp>
+#include <portable-file-dialogs.h>
 #include "settings.h"
 #include "helpers.h"
 #include "api/os/os.h"

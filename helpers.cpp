@@ -8,7 +8,7 @@
 #include <random>
 
 #include "helpers.h"
-#include "lib/json/json.hpp"
+#include <nlohmann/json.hpp>
 
 #if defined(_WIN32)
 #include <string>

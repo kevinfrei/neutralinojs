@@ -1,7 +1,7 @@
 #ifndef NEU_STORAGE_H
 #define NEU_STORAGE_H
 
-#include "lib/json/json.hpp"
+#include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
 using namespace std;

@@ -5,7 +5,7 @@
 
 #include <websocketpp/server.hpp>
 
-#include "lib/json/json.hpp"
+#include <nlohmann/json.hpp>
 #include "errors.h"
 
 using namespace std;

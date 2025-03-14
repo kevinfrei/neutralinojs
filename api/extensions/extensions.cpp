@@ -1,7 +1,7 @@
 #include <string>
 
 #include "server/neuserver.h"
-#include "lib/json/json.hpp"
+#include <nlohmann/json.hpp>
 #include "helpers.h"
 #include "errors.h"
 #include "extensions_loader.h"

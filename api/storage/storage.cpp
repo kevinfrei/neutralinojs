@@ -4,8 +4,8 @@
 #include <regex>
 #include <filesystem>
 
-#include "lib/json/json.hpp"
-#include "lib/platformfolders/platform_folders.h"
+#include <nlohmann/json.hpp>
+#include <sago/platform_folders.h>
 
 #include "settings.h"
 #include "helpers.h"

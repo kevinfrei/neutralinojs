@@ -4,11 +4,14 @@
 #if defined(_WIN32)
 #include <winsock2.h>
 #include <websocketpp/error.hpp>
+#else
+#include <netinet/in.h>
+#include <netdb.h>
 #endif
 
-#include "lib/json/json.hpp"
-#include "lib/easylogging/easylogging++.h"
-#include "lib/filedialogs/portable-file-dialogs.h"
+#include <nlohmann/json.hpp>
+#include <easylogging++.h>
+#include <portable-file-dialogs.h>
 #include "auth/permission.h"
 #include "auth/authbasic.h"
 #include "server/neuserver.h"

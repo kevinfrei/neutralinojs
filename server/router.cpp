@@ -7,7 +7,7 @@
 
 #include <websocketpp/server.hpp>
 
-#include "lib/json/json.hpp"
+#include <nlohmann/json.hpp>
 #include "auth/authbasic.h"
 #include "auth/permission.h"
 #include "server/router.h"
