@@ -59,13 +59,14 @@ if(WIN32)
   )
   # I don't know if this level of complexity is actually necessary
   set(OS_LIBS
-    "${CMAKE_CURRENT_LIST_DIR}\\lib\\webview\\windows\\WebView2Loader.dll.lib"
+    "${CMAKE_CURRENT_LIST_DIR}\\lib\\webview\\windows\\WebView2LoaderStatic.lib"
     gdi32
     version
     ole32
     oleaut32
     wbemuuid
     ntdll
+    dwmapi
   )
   add_executable(neutralinojs WIN32 ${SRC} ${OS_SRC})
 elseif(APPLE)
