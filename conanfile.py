@@ -24,6 +24,8 @@ class Library(NamedTuple):
     info: Optional[List[CMakeInfo]] = None
 
 
+# Add libraries here. The library name and version must match the conan-center
+# package. The CMakeInfo is optional.
 libraries = [
     Library("boost", "1.83.0", [CMakeInfo("Boost", "boost::boost")]),
     Library("nlohmann_json", "3.11.3", [CMakeInfo("nlohmann_json", "nlohmann_json::nlohmann_json", "JSON_LIB")]),
@@ -36,7 +38,7 @@ libraries = [
 ]
 
 
-class KnottyYogaRecipe(ConanFile):
+class NeutralinoRecipe(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     generators = "CMakeDeps", "CMakeToolchain"
 

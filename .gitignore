@@ -19,6 +19,10 @@
 Thumbs.db
 .DS_Store
 
+# Cmake/Conan stuff:
+CMakeUserPresets.json
+ConanLibImports.cmake
+
 # Cmake build directories I like to use
 ninja
 ninja_rel
